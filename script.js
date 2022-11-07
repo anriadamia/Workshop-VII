@@ -104,8 +104,6 @@ form.addEventListener("submit", function (event) {
 //დავალება
 
   postOvelayAdd.classList.remove("addPost")
-  let newh3=document.createElement("h3");
-  newh3.textContent=event.target.id;
   let newh2=document.createElement("h2");
   newh2.textContent=event.target[0].value;
 let divWraper = document.createElement("div");
@@ -113,7 +111,6 @@ let divWraper = document.createElement("div");
   let newDeleteButton=document.createElement("button");
   newDeleteButton.textContent="Delete This Post"
   divWraper.appendChild(newh2);
-  divWraper.appendChild(newh3);
   divWraper.appendChild(newDeleteButton)
   mainWraper.appendChild(divWraper)
   newDeleteButton.addEventListener("click",function(event){
@@ -129,6 +126,7 @@ let divWraper = document.createElement("div");
     contentOverlay.appendChild(divP)
    
   })
+
 
 
 
