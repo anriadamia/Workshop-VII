@@ -1,6 +1,6 @@
 "use strict";
 
-// ცვლადების დეკლარაცია
+
 const mainWraper = document.getElementById("post-block");
 const overlay = document.getElementById("overlay");
 const close = document.getElementById("close");
@@ -9,7 +9,8 @@ const addButton = document.getElementById("add");
 const postOvelayAdd = document.getElementById("postoverlayadd");
 const form = document.getElementById("form");
 
-//მთავარი ფუნქცია სერვერზე
+
+
 function ajax(url, callback) {
   let request = new XMLHttpRequest();
   request.open("GET", url);
@@ -28,8 +29,7 @@ ajax("https://jsonplaceholder.typicode.com/posts", function (dataJs) {
   });
 });
 
-// item -> არის ჩვენი სათითაიოდ თითოელ იობიექტი
-//ვქმნით სათიტაოდ თითოეულ დივს + თავისი სტრუქტურით
+
 function createPost(item) {
   const divWraper = document.createElement("div");
   divWraper.classList.add("posts");
@@ -49,7 +49,7 @@ function createPost(item) {
   divWraper.appendChild(h2Post);
   divWraper.appendChild(deleteButton);
 
-  //deletebutton-is clicki
+  
   deleteButton.addEventListener("click", function (event) {
     event.stopPropagation();
     let id = event.target.getAttribute("data-id");
@@ -59,11 +59,11 @@ function createPost(item) {
     }).then(() => divWraper.remove());
   });
 
-  //   divis-click
+
   divWraper.addEventListener("click", function (event) {
-    // console.log(event.target);
+  
     let id = event.target.getAttribute("data-id");
-    // console.log(id);
+
     overlay.classList.add("activeOverlay");
     let url = `https://jsonplaceholder.typicode.com/posts/${id}`;
     ajax(url, function (dataJs) {
@@ -72,10 +72,10 @@ function createPost(item) {
   });
 
   mainWraper.appendChild(divWraper);
-  //   console.log(divWraper);
+
 }
 
-// პოსტის დეტალური ინფროამციის წამოღების ფუნქცია
+
 function overlayFunction(item) {
   const description = document.createElement("p");
   description.textContent = item.body;
@@ -83,13 +83,13 @@ function overlayFunction(item) {
   contentOverlay.appendChild(description);
 }
 
-// დავცურავთ ოვერლაის
+
 close.addEventListener("click", function () {
   overlay.classList.remove("activeOverlay");
   contentOverlay.innerHTML = " ";
 });
 
-// postis damateba
+
 addButton.addEventListener("click", function () {
   postOvelayAdd.classList.add("addPost");
 });
@@ -100,7 +100,37 @@ form.addEventListener("submit", function (event) {
   let formInfo = {
     title: event.target[0].value,
   };
+
+//დავალება
+
   postOvelayAdd.classList.remove("addPost")
+  let newh3=document.createElement("h3");
+  newh3.textContent=event.target.id;
+  let newh2=document.createElement("h2");
+  newh2.textContent=event.target[0].value;
+let divWraper = document.createElement("div");
+  divWraper.classList.add("posts");
+  let newDeleteButton=document.createElement("button");
+  newDeleteButton.textContent="Delete This Post"
+  divWraper.appendChild(newh2);
+  divWraper.appendChild(newh3);
+  divWraper.appendChild(newDeleteButton)
+  mainWraper.appendChild(divWraper)
+  newDeleteButton.addEventListener("click",function(event){
+    event.stopPropagation()
+    divWraper.remove()
+  })
+  
+  divWraper.addEventListener("click",()=>{
+    
+    overlay.classList.add("activeOverlay");
+    let divP=document.createElement("p");
+    divP.textContent=event.target[0].value;
+    contentOverlay.appendChild(divP)
+   
+  })
+
+
 
   fetch("https://jsonplaceholder.typicode.com/posts", {
     method: "POST",
