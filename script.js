@@ -100,6 +100,7 @@ form.addEventListener("submit", function (event) {
   let formInfo = {
     title: event.target[0].value,
   };
+  postOvelayAdd.classList.remove("addPost")
 
   fetch("https://jsonplaceholder.typicode.com/posts", {
     method: "POST",
